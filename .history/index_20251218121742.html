@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning with flashcards • Adelanto</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body>
+
+  <input class="view-toggle" type="radio" name="view" id="v-start" checked />
+  <input class="view-toggle" type="radio" name="view" id="v-game" />
+  <input class="view-toggle" type="radio" name="view" id="v-score" />
+
+  <div class="container">
+    <h1>Learning with flashcards</h1>
+    <p>Give the correct answer according to the image</p>
+
+    <nav class="nav" aria-label="Vistas">
+      <label class="nav-link" for="v-start" role="button" tabindex="0">Inicio</label>
+      <label class="nav-link" for="v-game" role="button" tabindex="0">Juego</label>
+      <label class="nav-link" for="v-score" role="button" tabindex="0">Score</label>
+    </nav>
+
+    <!-- ===================INICIO
+         =================== -->
+    <section class="view view-start" aria-label="Inicio del juego">
+      <div class="card-lite">
+        <h2 class="h2">Inicio de juego</h2>
+        <p class="muted">Adelanto visual.</p>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="player">Jugador</label>
+            <input id="player" type="text" placeholder="Ej: Roy" value="Jugador 1" />
+          </div>
+
+          <div class="field">
+            <label for="mode">Modo</label>
+            <select id="mode">
+              <option selected>Rápido (10 cartas)</option>
+              <option>Clásico (20 cartas)</option>
+              <option>Sin límite</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="difficulty">Dificultad</label>
+            <select id="difficulty">
+              <option selected>Fácil</option>
+              <option>Media</option>
+              <option>Difícil</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <label class="btn-next" for="v-game">Iniciar</label>
+          <label class="btn-secondary" for="v-score">Ver score</label>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================
+         JUEGO
+         =================== -->
+    <section class="view view-game" aria-label="Juego (preview)">
+      <div id="game">
+        <div id="image-container">
+          <img id="card-image" alt="picture" />
+        </div>
+
+        <div id="options-container">
+          <button class="option-button" type="button" disabled>Opción A</button>
+          <button class="option-button" type="button" disabled>Opción B</button>
+          <button class="option-button" type="button" disabled>Opción C</button>
+          <button class="option-button" type="button" disabled>Opción D</button>
+        </div>
+
+        <button id="next-button" type="button" disabled>Siguiente</button>
+
+        <div class="mini-stats" aria-label="Indicadores">
+          <span><b>Ronda:</b> 3/10</span>
+          <span><b>Aciertos:</b> 2</span>
+          <span><b>Fallos:</b> 1</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== SCORE =================== -->
+    <section class="view view-score" aria-label="Tabla de score">
+      <div class="score-head">
+        <div>
+          <h2 class="h2">Score</h2>
+          <p class="muted">Tabla de ejemplo.</p>
+        </div>
+        <div class="actions">
+          <label class="btn-secondary" for="v-game">Volver</label>
+          <label class="btn-next" for="v-start">Nuevo juego</label>
+        </div>
+      </div>
+
+      <div class="score-cards">
+        <div class="score-card">
+          <span class="muted">Puntaje</span>
+          <b class="big">250</b>
+        </div>
+        <div class="score-card">
+          <span class="muted">Precisión</span>
+          <b class="big">80%</b>
+        </div>
+        <div class="score-card">
+          <span class="muted">Mejor racha</span>
+          <b class="big">5</b>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="score-table" aria-label="Tabla de rondas">
+          <thead>
+            <tr>
+              <th>Ronda</th>
+              <th>Respuesta</th>
+              <th>Resultado</th>
+              <th>Tiempo</th>
+              <th>Puntos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Opción A</td>
+              <td><span class="pill ok">Correcta</span></td>
+              <td>00:06</td>
+              <td>+25</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Opción C</td>
+              <td><span class="pill bad">Incorrecta</span></td>
+              <td>00:09</td>
+              <td>+0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Opción B</td>
+              <td><span class="pill ok">Correcta</span></td>
+              <td>00:05</td>
+              <td>+25</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>
