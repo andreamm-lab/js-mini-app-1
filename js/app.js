@@ -1,41 +1,43 @@
 // =====================
-// DATA (editá imágenes y palabras a tu gusto)
-// Asegurate de tener esas imágenes en: /assets/images/
+// IMAGES & QUESTIONS
 // =====================
 const QUESTIONS = [
-  {
-    img: "./assets/images/apple.png",
-    answer: "Apple",
-    choices: ["Apple", "Banana", "Orange", "Grapes"],
-  },
-  {
-    img: "./assets/images/dog.webp",
-    answer: "Dog",
-    choices: ["Cat", "Dog", "Bird", "Fish"],
-  },
-  {
-    img: "./assets/images/car.webp",
-    answer: "Car",
-    choices: ["Bike", "Bus", "Car", "Train"],
-  },
-  {
-    img: "./assets/images/book.png",
-    answer: "Book",
-    choices: ["Pen", "Book", "Chair", "Phone"],
-  },
-  {
-    img: "./assets/images/house.webp",
-    answer: "House",
-    choices: ["House", "School", "Hospital", "Store"],
-  },
+  { img: "./assets/images/apple.png", answer: "Apple", choices: ["Apple", "Banana", "Orange", "Grapes"] },
+  { img: "./assets/images/dog.webp", answer: "Dog", choices: ["Cat", "Dog", "Bird", "Fish"] },
+  { img: "./assets/images/car.webp", answer: "Car", choices: ["Bike", "Bus", "Car", "Train"] },
+  { img: "./assets/images/book.png", answer: "Book", choices: ["Pen", "Book", "Chair", "Phone"] },
+  { img: "./assets/images/house.webp", answer: "House", choices: ["House", "School", "Hospital", "Store"] },
+
+  { img: "./assets/images/cat.webp", answer: "Cat", choices: ["Dog", "Cat", "Bird", "Fish"] },
+  { img: "./assets/images/bus.webp", answer: "Bus", choices: ["Car", "Bike", "Bus", "Train"] },
+  { img: "./assets/images/bike.webp", answer: "Bike", choices: ["Bike", "Bus", "Car", "Plane"] },
+  { img: "./assets/images/train.webp", answer: "Train", choices: ["Train", "Boat", "Bus", "Car"] },
+  { img: "./assets/images/pen.webp", answer: "Pen", choices: ["Pencil", "Pen", "Book", "Eraser"] },
+
+  { img: "./assets/images/chair.webp", answer: "Chair", choices: ["Table", "Chair", "Sofa", "Bed"] },
+  { img: "./assets/images/phone.webp", answer: "Phone", choices: ["Laptop", "Phone", "Tablet", "Camera"] },
+  { img: "./assets/images/laptop.webp", answer: "Laptop", choices: ["Keyboard", "Laptop", "Mouse", "Monitor"] },
+  { img: "./assets/images/water.webp", answer: "Water", choices: ["Milk", "Juice", "Water", "Tea"] },
+  { img: "./assets/images/milk.webp", answer: "Milk", choices: ["Coffee", "Milk", "Tea", "Water"] },
+
+  { img: "./assets/images/coffee.webp", answer: "Coffee", choices: ["Coffee", "Tea", "Milk", "Soda"] },
+  { img: "./assets/images/tea.webp", answer: "Tea", choices: ["Tea", "Coffee", "Water", "Juice"] },
+  { img: "./assets/images/bread.webp", answer: "Bread", choices: ["Cheese", "Bread", "Cake", "Pizza"] },
+  { img: "./assets/images/cake.webp", answer: "Cake", choices: ["Cake", "Bread", "Cookie", "Pie"] },
+  { img: "./assets/images/pizza.webp", answer: "Pizza", choices: ["Burger", "Pizza", "Taco", "Salad"] },
+
+  { img: "./assets/images/sun.webp", answer: "Sun", choices: ["Moon", "Star", "Sun", "Cloud"] },
+  { img: "./assets/images/moon.webp", answer: "Moon", choices: ["Moon", "Sun", "Cloud", "Rain"] },
+  { img: "./assets/images/cloud.webp", answer: "Cloud", choices: ["Cloud", "Sun", "Snow", "Wind"] },
+  { img: "./assets/images/rain.webp", answer: "Rain", choices: ["Rain", "Snow", "Sun", "Fog"] },
+  { img: "./assets/images/snow.webp", answer: "Snow", choices: ["Snow", "Rain", "Sun", "Cloud"] },
 ];
 
+
 // =====================
-// SOUNDS (opcional)
-// Poné archivos reales en /assets/audio/ o dejalo sin ellos.
+// SOUNDS
 // =====================
 const sounds = {
-  click: new Audio("./assets/audio/click.mp3"),
   ok: new Audio("./assets/audio/correct.mp3"),
   bad: new Audio("./assets/audio/wrong.mp3"),
   finish: new Audio("./assets/audio/finish.mp3"),
@@ -47,7 +49,7 @@ function safePlay(audio) {
 }
 
 // =====================
-// STATE (variables requeridas)
+// STATE (global variables)
 // =====================
 let currentIndex = 0;
 let score = 0;
@@ -95,7 +97,7 @@ const scoreRowsEl = document.getElementById("score-rows");
 // Botón iniciar (es un label). Lo detectamos por clase y texto.
 // (Si querés, poné id="start-btn" al label "Iniciar" y lo tomamos directo)
 const startLabels = Array.from(document.querySelectorAll("label.btn-next"));
-const startBtn = startLabels.find((l) => l.textContent.trim().toLowerCase() === "start"); // ✅ CHANGED
+const startBtn = startLabels.find((l) => l.textContent.trim().toLowerCase() === "start"); 
 
 // =====================
 // HELPERS
@@ -106,17 +108,16 @@ function formatTime(sec) {
 }
 
 function getTotalQuestions() {
-  // Modo: 10 / 20 / sin límite
-  const mode = modeSelect.value.toLowerCase(); // ✅ CHANGED (safe)
-  if (mode.includes("10") || mode.includes("fast")) return Math.min(10, QUESTIONS.length);     // ✅ CHANGED (safe)
-  if (mode.includes("20") || mode.includes("classic")) return Math.min(20, QUESTIONS.length); // ✅ CHANGED (safe)
-  return QUESTIONS.length;
+  const requested = Number(modeSelect.value); // 5 / 7 / 10
+  return Math.min(requested, QUESTIONS.length);
 }
+
+
 
 function applyDifficulty() {
   const diff = difficultySelect.value.toLowerCase();
-  if (diff.includes("easy") || diff.includes("fácil")) timePerQuestion = 12;    // ✅ CHANGED
-  else if (diff.includes("medium") || diff.includes("media")) timePerQuestion = 10; // ✅ CHANGED
+  if (diff.includes("easy") || diff.includes("fácil")) timePerQuestion = 12;    
+  else if (diff.includes("medium") || diff.includes("media")) timePerQuestion = 10; 
   else timePerQuestion = 7;
 }
 
@@ -160,11 +161,9 @@ function resetGame() {
   feedbackEl.textContent = "";
   feedbackEl.className = "feedback";
 }
-
 function loadQuestion() {
   const total = getTotalQuestions();
 
-  // Si terminamos, mostramos score
   if (currentIndex >= total) {
     endGame();
     return;
@@ -173,29 +172,48 @@ function loadQuestion() {
   locked = false;
   nextBtn.disabled = true;
 
-  // Limpio estados visuales
   feedbackEl.textContent = "";
   feedbackEl.className = "feedback";
+
+  // Disable options until the image is ready
   optionButtons.forEach((b) => {
-    b.disabled = false;
+    b.disabled = true;
     b.classList.remove("correct", "wrong");
   });
 
   const q = QUESTIONS[currentIndex];
+
+  // Safety guard (prevents undefined crashes)
+  if (!q) {
+    endGame();
+    return;
+  }
+
+  // Reset handlers to avoid stale events
+  imgEl.onload = null;
+  imgEl.onerror = null;
+
+  imgEl.onload = () => {
+    optionButtons.forEach((b) => (b.disabled = false));
+    startTimer();
+  };
+
+  imgEl.onerror = () => {
+    feedbackEl.textContent = "⚠️ Image could not be loaded. Click Next.";
+    feedbackEl.className = "feedback bad";
+    nextBtn.disabled = false;
+  };
+
   imgEl.src = q.img;
 
-  // Pintar opciones
   optionButtons.forEach((btn, i) => {
     btn.textContent = q.choices[i] ?? `Option ${i + 1}`;
     btn.dataset.choice = btn.textContent;
   });
 
-  // Stats
   roundTextEl.textContent = `${currentIndex + 1}/${total}`;
   hitsTextEl.textContent = String(hits);
   failsTextEl.textContent = String(fails);
-
-  startTimer();
 }
 
 function handleAnswer(selectedText, timedOut = false) {
@@ -255,7 +273,6 @@ function handleAnswer(selectedText, timedOut = false) {
 }
 
 function nextQuestion() {
-  safePlay(sounds.click);
   currentIndex += 1;
   loadQuestion();
 }
@@ -307,7 +324,6 @@ function endGame() {
 // =====================
 optionButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    safePlay(sounds.click);
     handleAnswer(btn.dataset.choice, false);
   });
 });
