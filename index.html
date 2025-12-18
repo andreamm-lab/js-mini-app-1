@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Learning with flashcards • Adelanto</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Learning with flashcards • Preview</title>
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
 
 <body>
@@ -18,144 +18,137 @@
     <h1>Learning with flashcards</h1>
     <p>Give the correct answer according to the image</p>
 
-    <nav class="nav" aria-label="Vistas">
-      <label class="nav-link" for="v-start" role="button" tabindex="0">Inicio</label>
-      <label class="nav-link" for="v-game" role="button" tabindex="0">Juego</label>
+    <nav class="nav" aria-label="Views">
+      <label class="nav-link" for="v-start" role="button" tabindex="0">Start</label>
+      <label class="nav-link" for="v-game" role="button" tabindex="0">Game</label>
       <label class="nav-link" for="v-score" role="button" tabindex="0">Score</label>
     </nav>
 
-    <!-- ===================INICIO
+    <!-- ===================
+             START
          =================== -->
-    <section class="view view-start" aria-label="Inicio del juego">
+    <section class="view view-start" aria-label="Game start">
       <div class="card-lite">
-        <h2 class="h2">Inicio de juego</h2>
-        <p class="muted">Adelanto visual.</p>
+        <h2 class="h2">Game start</h2>
+        <p class="muted">Visual preview.</p>
 
         <div class="form-grid">
           <div class="field">
-            <label for="player">Jugador</label>
-            <input id="player" type="text" placeholder="Ej: Roy" value="Jugador 1" />
+            <label for="player">Player</label>
+            <input id="player" type="text" placeholder="E.g. Roy" value="Player 1" />
           </div>
 
           <div class="field">
-            <label for="mode">Modo</label>
+            <label for="mode">Mode</label>
             <select id="mode">
-              <option selected>Rápido (10 cartas)</option>
-              <option>Clásico (20 cartas)</option>
-              <option>Sin límite</option>
+              <option selected>Fast (10 cards)</option>
+              <option>Classic (20 cards)</option>
+              <option>No limit</option>
             </select>
           </div>
 
           <div class="field">
-            <label for="difficulty">Dificultad</label>
+            <label for="difficulty">Difficulty</label>
             <select id="difficulty">
-              <option selected>Fácil</option>
-              <option>Media</option>
-              <option>Difícil</option>
+              <option selected>Easy</option>
+              <option>Medium</option>
+              <option>Hard</option>
             </select>
           </div>
         </div>
 
         <div class="actions">
-          <label class="btn-next" for="v-game">Iniciar</label>
-          <label class="btn-secondary" for="v-score">Ver score</label>
+          <label class="btn-next" for="v-game">Start</label>
+          <label class="btn-secondary" for="v-score">View score</label>
         </div>
 
       </div>
     </section>
 
     <!-- ===================
-         JUEGO
+         GAME
          =================== -->
-    <section class="view view-game" aria-label="Juego (preview)">
+    <section class="view view-game" aria-label="Game">
       <div id="game">
+        <div class="top-bar">
+          <div class="timer" aria-label="Timer">
+            ⏱️ Time: <span id="timer-text">00:10</span>
+          </div>
+          <div class="feedback" id="feedback" aria-live="polite"></div>
+        </div>
+
         <div id="image-container">
-          <img id="card-image" alt="picture" />
+          <img id="card-image" alt="Flashcard image" />
         </div>
 
         <div id="options-container">
-          <button class="option-button" type="button" disabled>Opción A</button>
-          <button class="option-button" type="button" disabled>Opción B</button>
-          <button class="option-button" type="button" disabled>Opción C</button>
-          <button class="option-button" type="button" disabled>Opción D</button>
+          <button class="option-button" type="button">Option A</button>
+          <button class="option-button" type="button">Option B</button>
+          <button class="option-button" type="button">Option C</button>
+          <button class="option-button" type="button">Option D</button>
         </div>
 
-        <button id="next-button" type="button" disabled>Siguiente</button>
+        <button id="next-button" type="button" disabled>Next</button>
 
-        <div class="mini-stats" aria-label="Indicadores">
-          <span><b>Ronda:</b> 3/10</span>
-          <span><b>Aciertos:</b> 2</span>
-          <span><b>Fallos:</b> 1</span>
+        <div class="mini-stats" aria-label="Stats">
+          <span><b>Round:</b> <span id="round-text">1/10</span></span>
+          <span><b>Correct:</b> <span id="hits-text">0</span></span>
+          <span><b>Wrong:</b> <span id="fails-text">0</span></span>
         </div>
       </div>
     </section>
 
-    <!-- =================== SCORE =================== -->
-    <section class="view view-score" aria-label="Tabla de score">
+    <!-- ===================
+             SCORE
+             =================== -->
+    <section class="view view-score" aria-label="Score table">
       <div class="score-head">
         <div>
           <h2 class="h2">Score</h2>
-          <p class="muted">Tabla de ejemplo.</p>
+          <p class="muted">Example table.</p>
         </div>
         <div class="actions">
-          <label class="btn-secondary" for="v-game">Volver</label>
-          <label class="btn-next" for="v-start">Nuevo juego</label>
+          <label class="btn-secondary" for="v-game">Back</label>
+          <label class="btn-next" for="v-start">New game</label>
         </div>
       </div>
 
       <div class="score-cards">
         <div class="score-card">
-          <span class="muted">Puntaje</span>
-          <b class="big">250</b>
+          <span class="muted">Score</span>
+          <b class="big" id="score-points">0</b>
         </div>
         <div class="score-card">
-          <span class="muted">Precisión</span>
-          <b class="big">80%</b>
+          <span class="muted">Accuracy</span>
+          <b class="big" id="score-accuracy">0%</b>
         </div>
         <div class="score-card">
-          <span class="muted">Mejor racha</span>
-          <b class="big">5</b>
+          <span class="muted">Best streak</span>
+          <b class="big" id="score-streak">0</b>
         </div>
       </div>
 
+      <p class="muted" id="final-message">—</p>
+
       <div class="table-wrap">
-        <table class="score-table" aria-label="Tabla de rondas">
+        <table class="score-table" aria-label="Rounds table">
           <thead>
             <tr>
-              <th>Ronda</th>
-              <th>Respuesta</th>
-              <th>Resultado</th>
-              <th>Tiempo</th>
-              <th>Puntos</th>
+              <th>Round</th>
+              <th>Answer</th>
+              <th>Result</th>
+              <th>Time</th>
+              <th>Points</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Opción A</td>
-              <td><span class="pill ok">Correcta</span></td>
-              <td>00:06</td>
-              <td>+25</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Opción C</td>
-              <td><span class="pill bad">Incorrecta</span></td>
-              <td>00:09</td>
-              <td>+0</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Opción B</td>
-              <td><span class="pill ok">Correcta</span></td>
-              <td>00:05</td>
-              <td>+25</td>
-            </tr>
+          <tbody id="score-rows">
+            <!-- Filled dynamically by JS -->
           </tbody>
         </table>
       </div>
     </section>
   </div>
+<script defer src="./js/app.js"></script>
 </body>
 
 </html>
